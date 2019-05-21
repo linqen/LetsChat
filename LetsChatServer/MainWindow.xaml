@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Button x:Name="StartButton" Content="Start" HorizontalAlignment="Left" Margin="102,152,0,0" VerticalAlignment="Top" Width="262" Height="108"/>
+        <Button x:Name="StopButton" Content="Stop" HorizontalAlignment="Left" Margin="437,152,0,0" VerticalAlignment="Top" Width="262" Height="108"/>
+        <Label Content="Server Status" HorizontalAlignment="Left" Margin="317,63,0,0" VerticalAlignment="Top" Width="99" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="StatusLabel" Content="Off" HorizontalAlignment="Left" Margin="416,63,0,0" VerticalAlignment="Top" Width="47" FontWeight="Bold" Foreground="Red"/>
+
     </Grid>
 </Window>

@@ -20,9 +20,47 @@ namespace LetsChatServer
     /// </summary>
     public partial class MainWindow : Window
     {
+        Server _server;
         public MainWindow()
         {
             InitializeComponent();
+            StartButton.Click += StartButton_Click;
+            StopButton.Click += StopButton_Click;
+            StopButton.IsEnabled = false;
+            StatusLabel.Content = "Off";
+            StatusLabel.Foreground = Brushes.Red;
+        }
+
+        private void StopButton_Click(object sender, RoutedEventArgs e)
+        {
+            StopServer();
+            StartButton.IsEnabled = true;
+            StopButton.IsEnabled = false;
+            StatusLabel.Content = "Off";
+            StatusLabel.Foreground = Brushes.Red;
+        }
+
+        private void StartButton_Click(object sender, RoutedEventArgs e)
+        {
+            StartServer();
+            StartButton.IsEnabled = false;
+            StopButton.IsEnabled = true;
+            StatusLabel.Content = "On";
+            StatusLabel.Foreground = Brushes.Green;
+        }
+
+        private void StartServer()
+        {
+            _server = new Server();
+            _server.Initialize();
+        }
+        private void StopServer()
+        {
+            _server.Shutdown();
+        }
+        private void RebootServer()
+        {
+            _server.Reboot();
         }
     }
 }
