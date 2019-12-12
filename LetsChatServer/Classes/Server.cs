@@ -11,15 +11,20 @@ namespace LetsChatServer
     class Server
     {
         public const int BUFFERSIZE = 1024;
+        public const int CLIENTPORT = 62222;
+        public const int MYPORT = 65444;
 
+        
         private List<Client> _clients;
         private Thread _executionThread;
-        private UdpClient myUdpClient;
+        private UdpClient _myUdpClientSender;
+        private UdpClient _myUdpClientReciver;
         //private Socket _serverChatSocket;
         public void Initialize()
         {
             _clients = new List<Client>();
-            myUdpClient = new UdpClient(65444);
+            _myUdpClientReciver = new UdpClient(MYPORT);
+            _myUdpClientSender = new UdpClient();
 
             _executionThread = new Thread(ServerWork);
             _executionThread.Start();
@@ -32,7 +37,8 @@ namespace LetsChatServer
                 //NotifyClients Server go down
             }
             _executionThread.Abort();
-            myUdpClient.Close();
+            _myUdpClientSender.Close();
+            _myUdpClientReciver.Close();
             //_serverChatSocket.Disconnect(true);
         }
         public void Reboot()
@@ -45,19 +51,21 @@ namespace LetsChatServer
         {
             //byte[] buffer = new byte[BUFFERSIZE];
             string message;
-            IPEndPoint remoteclient = new IPEndPoint(IPAddress.Any, 65444);
-            myUdpClient.Client.ReceiveTimeout = 150;
+            IPEndPoint remoteclient = new IPEndPoint(IPAddress.Any, 62222);
+            _myUdpClientReciver.Client.ReceiveTimeout = 150;
+            _myUdpClientSender.Client.ReceiveTimeout = 150;
+
             while (true)
             {
                 byte[] buffer;
                 try
                 {
-                    buffer = myUdpClient.Receive(ref remoteclient);
+                    buffer = _myUdpClientReciver.Receive(ref remoteclient);
+                    _myUdpClientSender.Send(Encoding.UTF8.GetBytes("true"), 4, remoteclient);
                     message = Encoding.UTF8.GetString(buffer);
                     Console.WriteLine("From: {0}", remoteclient.ToString());
                     Console.WriteLine(" Message: {0} ", message);
 
-                    int i = 2;
 
                 }
                 catch(SocketException e)

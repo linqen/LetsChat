@@ -7,8 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="ConnectButton"  Content="Connect" HorizontalAlignment="Left" Margin="101,176,0,0" VerticalAlignment="Top" Width="265" Height="83"/>
-        <Button x:Name="SendMessageButton"  Content="Send Hello World!" HorizontalAlignment="Left" Margin="445,176,0,0" VerticalAlignment="Top" Width="222" Height="52"/>
+        <Button x:Name="ConnectButton"  Content="Connect" HorizontalAlignment="Left" Margin="252,39,0,0" VerticalAlignment="Top" Width="179" Height="21"/>
+        <Button x:Name="SendMessageButton"  Content="Send" HorizontalAlignment="Left" Margin="61,245,0,0" VerticalAlignment="Top" Width="135" Height="28"/>
+        <TextBox x:Name="MessageBox" HorizontalAlignment="Left" Height="136" Margin="61,104,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="222"/>
+        <TextBox x:Name="SelectedName" HorizontalAlignment="Left" Height="23" Margin="61,39,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="159"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="61,13,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

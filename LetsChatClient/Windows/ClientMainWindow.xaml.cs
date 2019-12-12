@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LetsChatClient.Classes;
 
 namespace LetsChatClient
 {
@@ -20,24 +21,37 @@ namespace LetsChatClient
     /// </summary>
     public partial class MainWindow : Window
     {
-        Client myClient;
+        private ClientController _clientController;
         public MainWindow()
         {
             InitializeComponent();
             ConnectButton.Click += ConnectButton_Click;
             SendMessageButton.Click += SendMessageButton_Click;
+
+
+            ConnectButton.IsEnabled = true;
+            MessageBox.IsEnabled = false;
+            SendMessageButton.IsEnabled = false;
+
         }
 
 
         private void ConnectButton_Click(object sender, RoutedEventArgs e)
         {
-            myClient = new Client();
-            myClient.Connect();
-            ConnectButton.IsEnabled = false;
+            _clientController = new ClientController();
+            if (_clientController.Connect(SelectedName.Text))
+            {
+                SelectedName.IsEnabled = false;
+                ConnectButton.IsEnabled = false;
+                MessageBox.IsEnabled = true;
+                SendMessageButton.IsEnabled = true;
+            }
+
         }
         private void SendMessageButton_Click(object sender, RoutedEventArgs e)
         {
-            myClient.SendMessage();
+            _clientController.SendMessage(MessageBox.Text);
+            MessageBox.Clear();
         }
 
     }
