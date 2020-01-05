@@ -31,9 +31,7 @@ namespace LetsChatClient.Classes
             _myUdpClientReciver = new UdpClient(MYPORT);
             
             _myUdpClientSender = new UdpClient();
-            IPAddress.TryParse(SERVERIP, out ipAddress);
-            endpoint = new IPEndPoint(ipAddress, SERVERPORT);
-            _myUdpClientSender.Send(name, name.Length, endpoint);
+            _myUdpClientSender.Send(name, name.Length, SERVERIP, SERVERPORT);
 
             bool clientAccepted = false;
             try
@@ -48,7 +46,7 @@ namespace LetsChatClient.Classes
             {
                 clientAccepted = false;
             }
-            _myUdpClientSender.Client.ReceiveTimeout = 0;
+            _myUdpClientSender.Client.ReceiveTimeout = 500;
 
             return clientAccepted;
         }
@@ -59,7 +57,7 @@ namespace LetsChatClient.Classes
         }
         public void SendMessage(byte[] message)
         {
-            _myUdpClientSender.Send(message, message.Length, endpoint);
+            _myUdpClientSender.Send(message, message.Length, SERVERIP, SERVERPORT);
         }
         private void ReceiveMessages()
         {
