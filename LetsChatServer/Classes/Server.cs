@@ -61,7 +61,7 @@ namespace LetsChatServer
                 try
                 {
                     buffer = _myUdpClientReciver.Receive(ref remoteclient);
-                    _myUdpClientSender.Send(Encoding.UTF8.GetBytes("true"), 4, remoteclient);
+                    _myUdpClientSender.Send(Encoding.UTF8.GetBytes("true"), 4, remoteclient.Address.ToString(), CLIENTPORT);
                     message = Encoding.UTF8.GetString(buffer);
                     Console.WriteLine("From: {0}", remoteclient.ToString());
                     Console.WriteLine(" Message: {0} ", message);
